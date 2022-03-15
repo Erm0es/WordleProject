@@ -1,3 +1,4 @@
+export const checkGuesses = () => {
 //a base of words for easy access to more words
 let base =[
 "spela",
@@ -10,33 +11,31 @@ let base =[
 ];
 
 let guessing="hallå";
-let guessingWord = guessing.toLowerCase().split("");
+let input = guessing.toLowerCase().split("");
 
-let rightGuess = base[Math.floor(Math.random() * base.length)];
-let wordBase = rightGuess.toLowerCase().split("");
-
-console.log(wordBase);
-console.log(guessingWord);
+let wordBase = base[Math.floor(Math.random() * base.length)].toLowerCase().split("");
 
 const holder = [];
 
-function checkGuesses (){
+function output (){
     for(let i = 0; i < 5; i++){
 
-        let position = wordBase.indexOf(guessingWord[i]);
+        let position = wordBase.indexOf(input[i]);
         
-        if(guessingWord[i] === wordBase[i]){
-            holder[i] = {letter: guessingWord[i], result: "correct"};
+        if(input[i] === wordBase[i]){
+            holder[i] = {letter: input[i], result: "correct"};
         }else{
-            holder[i] = {letter: guessingWord[i], result: "missplaced"};
+            holder[i] = {letter: input[i], result: "misplaced"};
         }
         if(position === -1){
-            holder[i] = {letter: guessingWord[i], result: "incorrect"};
+            holder[i] = {letter: input[i], result: "incorrect"};
         }
         wordBase[position] = "";
-        
-       
     };  
-    console.log(holder)
 }
-checkGuesses();
+output();
+}
+export default checkGuesses;
+
+
+

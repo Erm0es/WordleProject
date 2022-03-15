@@ -1,0 +1,8 @@
+Jag valde att testa output på 4 olika sätt.
+1.Hurvida "correct" var correct
+2.Hurvida "incorrect" var incorrect
+3.Ifall lowercase fungerade
+4.Ifall missplaced fungerade i missplaced-syfte. 
+
+Jag tycker att testen är rätt så heltäckande för att de flesta 
+scenarion jag kan komma på blir testade.  
