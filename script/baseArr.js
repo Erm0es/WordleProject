@@ -7,3 +7,4 @@ export const base = [
     "slita",
     "målar"
 ];
+

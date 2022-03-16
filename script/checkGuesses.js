@@ -1,23 +1,22 @@
-import {base} from "./baseArr"
 export function checkGuesses(input,wordBase){
-    
-    input = "hallå".toLowerCase().split("");
-    wordBase = base[Math.floor(Math.random() * base.length)].toLowerCase().split("");
+
+    let guess = input.split("");
     let holder = [];
+    
+    for (let i = 0; i < wordBase.length; i++) {
 
-    for (let i = 0; i < 5; i++) {
+        let position = wordBase.indexOf(guess[i]);
 
-        let position = wordBase.indexOf(input[i]);
-       
-        if (input[i] === wordBase[i]) {
-            holder[i] = {letter: input[i], result: "correct"};
+        if (guess[i] === wordBase[i]) {
+            holder[i] = {letter: guess[i], result: "correct"};
         } else {
-            holder[i] = {letter: input[i], result: "misplaced"};
+            holder[i] = {letter: guess[i], result: "misplaced"};
         }
         if (position === -1) {
-            holder[i] = {letter: input[i], result: "incorrect"};
+            holder[i] = {letter: guess[i], result: "incorrect"};
         }
         wordBase[position] = "";
+        
         console.log(wordBase);
         console.log(holder);
     }
