@@ -64,33 +64,8 @@ test('check if misplaced can handle double letters', () => {
     expect(output).toEqual(result);
 });
 
-test('check if guess and rightAnswer can handle uppercase', () => {
-    const guess = "ABC";
-    const rightAnswer = ["a","b","c"];
-    const output = checkGuesses(guess,rightAnswer);
-    const result = [
-        { letter: 'A', result: 'correct' },
-        { letter: 'B', result: 'correct' },
-        { letter: 'C', result: 'correct' },
-    ];
-    expect(output).toEqual(result);
-});
-
-test('check if guess and rightAnswer can handle uppercase', () => {
-    const guess = "abc";
-    const rightAnswer = ["A","B","C"];
-    const output = checkGuesses(guess,rightAnswer);
-    const result = [
-        { letter: 'a', result: 'correct' },
-        { letter: 'b', result: 'correct' },
-        { letter: 'c', result: 'correct' },
-    ];
-    expect(output).toEqual(result);
-});
-/*im checking every possible output that i can think off 
-and therefor i belive that the tests is succesfull and comprehensive*/
-
-
-
-
-//TOLOWERCASE?
+/*Efter att ha provat spelet "wordle" tycker jag att mina tester är heltäckande. Eftersom
+att man använder ett inprogramerat "keyboard" i spelet kan man inte skicka in en tom sträng eller en sträng med 
+små eller stora bokstäver(beroende på vad man använder på "keyboardet") som då inte skulle matcha "WordBase",
+därför har jag valt att inte lägga tester för detta. Hade velat testa hur och om WordBase tar ett random ord men
+vet inte hur man gör det.*/

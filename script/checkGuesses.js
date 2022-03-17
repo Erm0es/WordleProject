@@ -1,6 +1,6 @@
 export function checkGuesses(input,wordBase){
-
-    let guess = input.split("");
+    
+    let guess = input.toLowerCase().split("");
     let holder = [];
     
     for (let i = 0; i < wordBase.length; i++) {
@@ -16,9 +16,6 @@ export function checkGuesses(input,wordBase){
             holder[i] = {letter: guess[i], result: "incorrect"};
         }
         wordBase[position] = "";
-        
-        console.log(wordBase);
-        console.log(holder);
     }
    return holder;
 }
