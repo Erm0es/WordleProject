@@ -7,15 +7,10 @@ fetch("https://raw.githubusercontent.com/dwyl/english-words/master/words_diction
     return data.json();
 })
     .then(word => {
-        for(let i = 0; i < word.length; i++) {
-            if (word[i] == 5) {
-                const push = base.push(word)
-                console.log(base);
-            } else {
-                console.log("BUU")
-            }
+        function getWord (){
+        const words = Object.keys(word).filter((word) => word.length <= 6)
+        const push = base.push(words)
         }
+        return getWord(base);
     });
- 
-
     
