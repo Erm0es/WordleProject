@@ -7,14 +7,12 @@ fetch("https://raw.githubusercontent.com/dwyl/english-words/master/words_diction
     return data.json();
 })
     .then(word => {
-        for(let i = 0; i < word; i++) {
+        for(let i = 0; i < word.length; i++) {
             if (word[i] == 5) {
-                const push = base.push(word[i])
+                const push = base.push(word)
                 console.log(base);
             } else {
                 console.log("BUU")
-                console.log(word[i])
-
             }
         }
     });
