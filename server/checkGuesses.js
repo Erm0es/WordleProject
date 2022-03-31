@@ -20,5 +20,3 @@ export function checkGuesses(input,wordBase){
    return holder;
 }
 
-
-
