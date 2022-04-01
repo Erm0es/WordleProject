@@ -7,7 +7,8 @@
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "start": "node index.js",
-    "build": "cd client && npm install && npm run build"
+    "build": "cd client && npm install && npm run build",
+    "devStart": "nodemon mongoose.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   "dependencies": {
     "express": "^4.17.3",
     "express-handlebars": "^6.0.3",
+    "mongoose": "^6.2.9",
     "node-fetch": "^3.2.3",
     "nodemon": "^2.0.15"
   }
