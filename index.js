@@ -25,9 +25,10 @@ app.get("/info",async (req,res) => {
     res.render("./partials/info")
 });
 
-app.use("/static", express.static("./styling"));
+app.use("/static", express.static("/styling"));
 
 
 app.listen(PORT, () => {
     console.log(`server listening on ${PORT}`);
 });
+
