@@ -104,3 +104,15 @@ nav h1{
 #big{
   width: 75px;
 }
+
+#correct {
+  background-color: #528d4e;
+}
+
+#misplaced {
+  background-color: #b49f39;
+}
+
+#incorrect {
+  background-color: gray;
+}

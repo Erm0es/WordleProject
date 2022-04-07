@@ -2,7 +2,7 @@ export function checkGuesses(input,wordBase){
     
     let guess = input.toLowerCase().split("");
     let holder = [];
-    
+
     for (let i = 0; i < wordBase.length; i++) {
 
         let position = wordBase.indexOf(guess[i]);
@@ -18,5 +18,6 @@ export function checkGuesses(input,wordBase){
         wordBase[position] = "";
     }
    return holder;
+  
 }
 
