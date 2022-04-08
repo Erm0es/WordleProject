@@ -3,6 +3,7 @@ import Board from "./components/Board";
 import Keyboard from "./components/Keyboard";
 import { createContext, useEffect, useState } from "react";
 import { boardShell } from './Words';
+import GameOver from "./components/GameOver";
 
 export const AppContext = createContext();
 
@@ -11,12 +12,14 @@ function App() {
   const [currAttempt, setCurrAttempt] = useState({attempt: 0, letterPos: 0})
 
   const [data, setData] = useState(null);
-  //WORDS, SETWORDS?? Hur sparar jag words variablen så att jag når den utanför useEffect?
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+  const [disabledLetters, setDisabledLetters] = useState([]);
+  const [gameOver, setGameOver] = useState({gameOver: false, guessedWord: false});
 
-  const correctWord = "RIGHT";
+  let [correctWord, setCorrectWord] = useState("");
+  let [words, setWords] = useState ([]);
+  
 
   useEffect (() => {
     fetch("https://raw.githubusercontent.com/dwyl/english-words/master/words_dictionary.json")
@@ -28,9 +31,9 @@ function App() {
     })
     .then(data => {
       setData(data.json);
-      //hur får jag med all information här men ändå har det i en variabel?
-      words = Object.keys(data).filter((word) => word.length <= 5 && word.length > 3);
-      console.log(words)
+      setWords(words = Object.keys(data).filter((data) => data.length === 5));//&& data.length > 3));
+      setCorrectWord(correctWord = words[Math.floor(Math.random() * words.length)])
+      console.log(correctWord)
     })
     .catch(error => {
       console.error("Error", error);
@@ -62,13 +65,20 @@ function App() {
     for(let i = 0; i < 5; i++){
       currWord += board[currAttempt.attempt][i];
     }
-    //här ska WORDS jämföras med currWord, HUR?
-    if(setAllWord.has(currWord.toLowerCase())){
+    if(words.includes(currWord.toLowerCase())){
     setCurrAttempt({attempt: currAttempt.attempt + 1, letterPos: 0})
     }else {
-      alert("Word not found :(");
+      alert("Hey! Thats not even a word..");
     }
-  }
+    if(currWord === correctWord){
+      setGameOver({gameOver:true, guessedWord: true})
+      return;
+    } 
+    if(currAttempt.attempt === 5){
+      setGameOver ({gameOver: true, guessedWord:false});
+    }
+     
+  };
 
   return (
     <div className="App" >
@@ -89,10 +99,15 @@ function App() {
           loading,
           error,
           words,
+          setDisabledLetters,
+          disabledLetters,
+          setGameOver,
+          gameOver,
+
         }}>
         <div className="game">
           <Board />
-          <Keyboard />
+          {gameOver.gameOver ? <GameOver /> : <Keyboard />}
         </div>
       </AppContext.Provider>
     </div>

@@ -116,3 +116,10 @@ nav h1{
 #incorrect {
   background-color: gray;
 }
+
+#disabled {
+  background-color: rgb(46, 46, 46);
+  color: rgb(100, 100, 100);
+  width: 48px;
+  height: 68px;
+}
