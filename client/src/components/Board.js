@@ -4,7 +4,7 @@ function Board() {
     return (
     <div className="board">
       <div className="row">
-          <Letter letterPos={0} attemptVal={0}/>
+          <Letter letterPos={0} attemptVal={0}/>    
           <Letter letterPos={1} attemptVal={0}/>
           <Letter letterPos={2} attemptVal={0}/>
           <Letter letterPos={3} attemptVal={0}/>

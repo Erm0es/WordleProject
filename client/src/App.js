@@ -1,26 +1,61 @@
 import "./App.css";
 import Board from "./components/Board";
 import Keyboard from "./components/Keyboard";
+
+import StopWatch from "./components/StopWatch";
 import { createContext, useEffect, useState } from "react";
 import { boardShell } from './Words';
-import GameOver from "./components/GameOver";
 
+import GameOver from "./components/GameOver";
 export const AppContext = createContext();
 
 function App() {
+
+//timer  ----------------------------------------------------
+const [time, setTime] = useState({ms:0, s:0, m:0});
+const [interv, setInterv] = useState();
+
+var updatedMs = time.ms,
+    updatedS = time.s,
+    updatedM = time.m
+
+const run = () => {
+  if(updatedS === 60){
+    updatedM++;
+    updatedS = 0;
+  }
+  if(updatedMs === 100){
+    updatedS++;
+    updatedMs = 0;
+  }
+  updatedMs++;
+  return setTime({ms:updatedMs, s:updatedS, m:updatedM});
+};
+
+let start = () => {
+  run();
+  setInterv(setInterval(run,10));
+};
+
+//function for turning off the timer when game is done
+let stop = () => {
+  console.log("STÄNG AV DIG")
+}
+
+//game  --------------------------------------------------------
   const [board, setBoard]= useState(boardShell);
   const [currAttempt, setCurrAttempt] = useState({attempt: 0, letterPos: 0})
-
   const [data, setData] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [disabledLetters, setDisabledLetters] = useState([]);
   const [gameOver, setGameOver] = useState({gameOver: false, guessedWord: false});
-
-  let [correctWord, setCorrectWord] = useState("");
-  let [words, setWords] = useState ([]);
   
+  let [correctWord, setCorrectWord] = useState("");
+  let [words, setWords] = useState ([])
 
+ 
   useEffect (() => {
     fetch("https://raw.githubusercontent.com/dwyl/english-words/master/words_dictionary.json")
     .then(res => {
@@ -58,7 +93,7 @@ function App() {
       setBoard(current);
       setCurrAttempt({...currAttempt, letterPos: currAttempt.letterPos - 1});
   }
-
+  
   const onEnter = () => {
     if(currAttempt.letterPos !== 5) return;
     let currWord = "";
@@ -66,16 +101,21 @@ function App() {
       currWord += board[currAttempt.attempt][i];
     }
     if(words.includes(currWord.toLowerCase())){
-    setCurrAttempt({attempt: currAttempt.attempt + 1, letterPos: 0})
+      start({start});
+      setCurrAttempt({attempt: currAttempt.attempt + 1, letterPos: 0})
     }else {
       alert("Hey! Thats not even a word..");
     }
-    if(currWord === correctWord){
+    if(currWord.toLowerCase() === correctWord.toLowerCase()){
       setGameOver({gameOver:true, guessedWord: true})
+      //stop watch
+      stop({stop});
       return;
     } 
     if(currAttempt.attempt === 5){
       setGameOver ({gameOver: true, guessedWord:false});
+      //stop watch
+      stop({stop});
     }
      
   };
@@ -83,7 +123,7 @@ function App() {
   return (
     <div className="App" >
       <nav>
-        <h1>Wordle</h1>
+        <h1>Emel-le</h1>
       </nav>
       <AppContext.Provider 
         value={{
@@ -103,8 +143,13 @@ function App() {
           disabledLetters,
           setGameOver,
           gameOver,
-
+          time,
         }}>
+          <div className="clockHolder">
+            <div className="stopWatch">
+              <StopWatch time={time}/>
+           </div>
+          </div>
         <div className="game">
           <Board />
           {gameOver.gameOver ? <GameOver /> : <Keyboard />}
